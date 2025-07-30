@@ -1,0 +1,30 @@
+# Development Dockerfile for Butler service
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY pyproject.toml uv.lock* ./
+
+# Install dependencies including dev dependencies
+RUN uv sync --all-extras --dev
+
+# Make sure we use the virtualenv
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Expose port
+EXPOSE 8000
+
+# Run with reload for development
+CMD ["uvicorn", "butler.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
