@@ -134,7 +134,7 @@ def generate_project(target_dir: str = None) -> None:
         
         for file in files:
             file_path = Path(root) / file
-            if file_path.suffix in {'.py', '.toml', '.yaml', '.yml', '.json', '.md', '.txt', '.sh', '.conf', '.cfg', '.ini', '.Dockerfile'}:
+            if file_path.suffix in {'.py', '.toml', '.yaml', '.yml', '.json', '.md', '.txt', '.sh', '.conf', '.cfg', '.ini'}:
                 replace_in_file(file_path, replacements)
     
     # Rename directories

@@ -37,7 +37,6 @@ make dev
 - **PostgreSQL** database with SQLAlchemy
 - **Redis** for caching and background tasks
 - **Comprehensive testing** with pytest (19 tests included)
-- **Docker** containerization
 - **CI/CD** ready with pre-commit hooks
 - **Rich CLI** interface
 - **Production deployment** configs
@@ -60,7 +59,6 @@ The generator replaces these template variables throughout the codebase:
 ### Core Configuration
 - `pyproject.toml` - Project metadata, dependencies, and build config
 - `.env.example` - Environment variables template
-- `docker-compose.yml` - Container orchestration
 - `Makefile` - Development commands
 
 ### Source Code
@@ -101,8 +99,6 @@ The generator replaces these template variables throughout the codebase:
 - Rich CLI with helpful commands
 
 ### Deployment
-- Multi-stage Docker builds
-- Docker Compose for development and production
 - Nginx reverse proxy configuration
 - Database initialization scripts
 - Environment-based configuration
@@ -148,8 +144,6 @@ your-project/
 │   ├── services/              # Business logic
 │   └── utils/                 # Utilities
 ├── tests/                     # Test suite
-├── docker-compose.yml         # Container orchestration
-├── Dockerfile                 # Production container
 ├── Makefile                   # Development commands
 └── README.md                  # Project documentation
 ```
@@ -165,7 +159,6 @@ You get:
 - Import statements: `from weather_api.core.config import settings`
 - Database URL: `postgresql://weather-api:password@localhost/weather-api`
 - CLI help: `Weather API - A comprehensive weather data API`
-- Docker service name: `weather-api`
 
 ## Contributing to the Template
 

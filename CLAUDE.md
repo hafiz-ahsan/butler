@@ -21,11 +21,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `uv sync --all-extras --dev` - Install all dependencies including dev tools
 - `uv sync` - Install production dependencies only
 
-### Docker Development
-- `make docker-dev` - Run development environment with Docker
-- `make docker-build` - Build Docker image
-- `make docker-run` - Run with Docker Compose
-
 ## Architecture Overview
 
 This is a **FastAPI-based Python backend service** with the following key architectural components:

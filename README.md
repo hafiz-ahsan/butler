@@ -31,7 +31,6 @@ The generator will ask for:
 - **Logging** - Structured logging with rich console output
 - **Testing** - Comprehensive test suite with pytest
 - **Development Tools** - Pre-commit hooks, linting, and formatting
-- **Docker** - Production-ready containerization
 - **Documentation** - Auto-generated API docs
 
 ## Quick Start (for Butler project)
@@ -40,7 +39,6 @@ The generator will ask for:
 
 - Python 3.11+
 - [uv](https://docs.astral.sh/uv/) package manager
-- Docker (optional)
 - PostgreSQL (for production)
 - Redis (for background tasks)
 
@@ -117,19 +115,6 @@ pre-commit install
 
 # Start development server
 uvicorn butler.main:app --reload --host 127.0.0.1 --port 8000
-```
-
-### Using Docker
-
-```bash
-# Development environment
-make docker-dev
-
-# Production environment
-make docker-run
-
-# Build image
-make docker-build
 ```
 
 ## Template Usage
@@ -229,8 +214,6 @@ butler/                     # Your project name will replace 'butler'
 ├── nginx/               # Nginx configuration
 ├── docs/                # Documentation
 ├── pyproject.toml       # Project configuration
-├── docker-compose.yml   # Production Docker setup
-├── Dockerfile           # Production Docker image
 ├── Makefile            # Development commands
 ├── generate_project.py  # Template generator
 └── template_config.json # Template configuration
@@ -309,19 +292,6 @@ curl -X POST "http://localhost:8000/api/v1/ai/chat" \
 ```
 
 ## Production Deployment
-
-### Docker Compose
-
-```bash
-# Start production services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
 
 ### Environment Setup
 

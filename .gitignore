@@ -177,8 +177,6 @@ cython_debug/
 logs/
 *.log
 
-# Docker
-.dockerignore
 
 # uv
 .uv/

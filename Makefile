@@ -1,4 +1,4 @@
-.PHONY: help install dev test lint format clean docker-build docker-run docker-dev
+.PHONY: help install dev test lint format clean
 
 # Default target
 help:
@@ -12,9 +12,6 @@ help:
 	@echo "  lint         - Run linting checks"
 	@echo "  format       - Format code with black and isort"
 	@echo "  clean        - Clean cache and build files"
-	@echo "  docker-build - Build Docker image"
-	@echo "  docker-run   - Run with Docker Compose"
-	@echo "  docker-dev   - Run development environment with Docker"
 
 # Install dependencies
 install:
@@ -63,19 +60,6 @@ clean:
 	find . -type d -name "*.egg-info" -exec rm -rf {} +
 	rm -rf build/ dist/ .coverage htmlcov/ .pytest_cache/ .mypy_cache/
 
-# Docker commands
-docker-build:
-	docker build -t butler:latest .
-
-docker-run:
-	docker-compose up --build
-
-docker-dev:
-	docker-compose -f docker-compose.dev.yml up --build
-
-docker-stop:
-	docker-compose down
-
 # Database commands (when using Alembic)
 db-migrate:
 	uv run alembic upgrade head
@@ -85,11 +69,6 @@ db-migration:
 
 db-downgrade:
 	uv run alembic downgrade -1
-
-# Production deployment
-deploy:
-	@echo "Deploying Butler service..."
-	docker-compose -f docker-compose.yml up -d --build
 
 # Health check
 health:
