@@ -8,7 +8,7 @@ def test_register_user(client: TestClient, sample_user_data):
     """Test user registration."""
     response = client.post("/api/v1/auth/register", json=sample_user_data)
     assert response.status_code == 200
-    
+
     data = response.json()
     assert "access_token" in data
     assert data["token_type"] == "bearer"
@@ -19,12 +19,12 @@ def test_login_user(client: TestClient, sample_user_data):
     """Test user login."""
     login_data = {
         "email": sample_user_data["email"],
-        "password": sample_user_data["password"]
+        "password": sample_user_data["password"],
     }
-    
+
     response = client.post("/api/v1/auth/login", json=login_data)
     assert response.status_code == 200
-    
+
     data = response.json()
     assert "access_token" in data
     assert data["token_type"] == "bearer"
@@ -36,12 +36,12 @@ def test_get_current_user_info(client: TestClient, sample_user_data):
     # First register and get token
     register_response = client.post("/api/v1/auth/register", json=sample_user_data)
     token = register_response.json()["access_token"]
-    
+
     # Get user info with token
     headers = {"Authorization": f"Bearer {token}"}
     response = client.get("/api/v1/auth/me", headers=headers)
     assert response.status_code == 200
-    
+
     data = response.json()
     assert data["email"] == sample_user_data["email"]
     assert "id" in data
@@ -66,12 +66,12 @@ def test_refresh_token(client: TestClient, sample_user_data):
     # First register and get token
     register_response = client.post("/api/v1/auth/register", json=sample_user_data)
     token = register_response.json()["access_token"]
-    
+
     # Refresh token
     headers = {"Authorization": f"Bearer {token}"}
     response = client.post("/api/v1/auth/refresh", headers=headers)
     assert response.status_code == 200
-    
+
     data = response.json()
     assert "access_token" in data
     assert data["token_type"] == "bearer"

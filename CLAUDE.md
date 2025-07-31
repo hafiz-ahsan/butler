@@ -59,7 +59,7 @@ src/butler/                 # Main application package
 ### AI Service Integration
 The service provides a unified interface for multiple AI providers:
 - OpenAI GPT models
-- Anthropic Claude models  
+- Anthropic Claude models
 - Google Generative AI models
 
 Authentication is required for AI endpoints, accessed via `/api/v1/ai/chat`.
@@ -99,9 +99,23 @@ When using Alembic for database migrations:
 ### Environment Variables
 Key environment variables in `.env`:
 - `DATABASE_URL` - PostgreSQL connection string
-- `REDIS_URL` - Redis connection string  
+- `REDIS_URL` - Redis connection string
 - `SECRET_KEY` - JWT secret key
 - `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_AI_API_KEY` - AI service keys
 - `DEBUG` - Enable debug mode and API docs
 
 Always run `make lint` before committing code changes to ensure code quality standards are met.
+
+## Code Style Guidelines
+
+### No Emojis Policy
+**NEVER use emojis in any code files, documentation, or generated content.** This includes:
+- Source code files (.py, .js, .ts, etc.)
+- Configuration files (.toml, .yaml, .json, etc.)
+- Documentation files (.md, .rst, .txt, etc.)
+- Comments and docstrings
+- Log messages and error messages
+- Test files and test data
+- CLI output and help text
+
+Use descriptive text instead of emojis to maintain professionalism and ensure compatibility across all systems and environments.

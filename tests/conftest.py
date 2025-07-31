@@ -38,5 +38,5 @@ def sample_user_data():
     return {
         "email": "test@example.com",
         "password": "testpassword123",
-        "full_name": "Test User"
+        "full_name": "Test User",
     }

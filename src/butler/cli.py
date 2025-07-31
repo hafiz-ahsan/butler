@@ -25,7 +25,7 @@ def serve(
 ):
     """Start the Butler service."""
     console.print(f"Starting Butler service on {host}:{port}", style="bold green")
-    
+
     uvicorn.run(
         "butler.main:app",
         host=host,
@@ -40,12 +40,12 @@ def serve(
 def config():
     """Show current configuration."""
     configure_logging()
-    
+
     # Create a table to display configuration
     table = Table(title="Butler Configuration")
     table.add_column("Setting", style="cyan", no_wrap=True)
     table.add_column("Value", style="magenta")
-    
+
     # Add configuration rows
     config_items = [
         ("App Name", settings.app_name),
@@ -61,10 +61,10 @@ def config():
         ("Anthropic API Key", "Set" if settings.anthropic_api_key else "Not Set"),
         ("Google AI API Key", "Set" if settings.google_ai_api_key else "Not Set"),
     ]
-    
+
     for setting, value in config_items:
         table.add_row(setting, value)
-    
+
     console.print(table)
 
 
@@ -72,7 +72,7 @@ def config():
 def health():
     """Check service health."""
     import httpx
-    
+
     try:
         response = httpx.get(f"http://{settings.host}:{settings.port}/health")
         if response.status_code == 200:
@@ -81,7 +81,9 @@ def health():
             console.print(f"Status: {data['status']}")
             console.print(f"Version: {data['version']}")
         else:
-            console.print(f"Service unhealthy: {response.status_code}", style="bold red")
+            console.print(
+                f"Service unhealthy: {response.status_code}", style="bold red"
+            )
     except Exception as e:
         console.print(f"Unable to connect to service: {e}", style="bold red")
 
@@ -91,17 +93,22 @@ def test():
     """Run tests."""
     import subprocess
     import sys
-    
+
     console.print("Running tests...", style="bold blue")
-    
+
     try:
-        result = subprocess.run([
-            sys.executable, "-m", "pytest", 
-            "tests/", 
-            "-v", 
-            "--cov=butler",
-            "--cov-report=term-missing"
-        ], check=True)
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "pytest",
+                "tests/",
+                "-v",
+                "--cov=butler",
+                "--cov-report=term-missing",
+            ],
+            check=True,
+        )
         console.print("All tests passed!", style="bold green")
     except subprocess.CalledProcessError:
         console.print("Tests failed!", style="bold red")
@@ -113,16 +120,16 @@ def lint():
     """Run linting checks."""
     import subprocess
     import sys
-    
+
     console.print("Running linting checks...", style="bold blue")
-    
+
     commands = [
         (["black", "--check", "--diff", "."], "Black formatting"),
         (["isort", "--check-only", "--diff", "."], "Import sorting"),
         (["flake8", "."], "Flake8 linting"),
         (["mypy", "src/butler"], "Type checking"),
     ]
-    
+
     failed = False
     for cmd, description in commands:
         console.print(f"Running {description}...")
@@ -136,7 +143,7 @@ def lint():
             if e.stderr:
                 console.print(e.stderr.decode())
             failed = True
-    
+
     if failed:
         raise typer.Exit(1)
     else:

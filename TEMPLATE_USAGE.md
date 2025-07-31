@@ -21,7 +21,7 @@ python generate_project.py
 # Author name: Your Name
 # Author email: your.email@example.com
 # GitHub repo [your-name/my-awesome-api]: yourorg/my-awesome-api
-# Target directory [my-awesome-api]: 
+# Target directory [my-awesome-api]:
 
 # Your new project is ready!
 cd my-awesome-api
@@ -103,7 +103,7 @@ The generator replaces these template variables throughout the codebase:
 - Database initialization scripts
 - Environment-based configuration
 
-### 🤖 AI Integrations
+### AI Integrations
 - OpenAI GPT models
 - Anthropic Claude
 - Google Generative AI

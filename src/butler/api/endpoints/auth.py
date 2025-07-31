@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel, EmailStr
@@ -22,6 +22,7 @@ security = HTTPBearer()
 
 class UserCreate(BaseModel):
     """User creation model."""
+
     email: EmailStr
     password: str
     full_name: Optional[str] = None
@@ -29,12 +30,14 @@ class UserCreate(BaseModel):
 
 class UserLogin(BaseModel):
     """User login model."""
+
     email: EmailStr
     password: str
 
 
 class Token(BaseModel):
     """Token response model."""
+
     access_token: str
     token_type: str = "bearer"
     expires_in: int
@@ -42,6 +45,7 @@ class Token(BaseModel):
 
 class User(BaseModel):
     """User model."""
+
     id: int
     email: EmailStr
     full_name: Optional[str] = None
@@ -61,26 +65,24 @@ def get_password_hash(password: str) -> str:
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Create a JWT access token."""
     to_encode = data.copy()
-    
+
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(
             minutes=settings.access_token_expire_minutes
         )
-    
+
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
-        to_encode, 
-        settings.secret_key, 
-        algorithm=settings.algorithm
+        to_encode, settings.secret_key, algorithm=settings.algorithm
     )
-    
+
     return encoded_jwt
 
 
 async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    credentials: HTTPAuthorizationCredentials = Depends(security),
 ) -> User:
     """Get the current authenticated user."""
     credentials_exception = HTTPException(
@@ -88,28 +90,23 @@ async def get_current_user(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    
+
     try:
         payload = jwt.decode(
             credentials.credentials,
             settings.secret_key,
-            algorithms=[settings.algorithm]
+            algorithms=[settings.algorithm],
         )
         email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    
+
     # In a real app, you would fetch the user from the database
     # For demo purposes, we'll return a mock user with the email from the token
-    user = User(
-        id=1,
-        email=email,
-        full_name="Demo User",
-        is_active=True
-    )
-    
+    user = User(id=1, email=email, full_name="Demo User", is_active=True)
+
     return user
 
 
@@ -117,25 +114,23 @@ async def get_current_user(
 async def register(user_data: UserCreate):
     """Register a new user."""
     logger.info("User registration attempt", email=user_data.email)
-    
+
     # In a real app, you would:
     # 1. Check if user already exists
     # 2. Save user to database
     # 3. Send verification email
-    
+
     hashed_password = get_password_hash(user_data.password)
     logger.info("User registered successfully", email=user_data.email)
-    
+
     # Create access token
     access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
     access_token = create_access_token(
-        data={"sub": user_data.email}, 
-        expires_delta=access_token_expires
+        data={"sub": user_data.email}, expires_delta=access_token_expires
     )
-    
+
     return Token(
-        access_token=access_token,
-        expires_in=settings.access_token_expire_minutes * 60
+        access_token=access_token, expires_in=settings.access_token_expire_minutes * 60
     )
 
 
@@ -143,25 +138,23 @@ async def register(user_data: UserCreate):
 async def login(user_data: UserLogin):
     """Authenticate and login a user."""
     logger.info("User login attempt", email=user_data.email)
-    
+
     # In a real app, you would:
     # 1. Fetch user from database
     # 2. Verify password
     # 3. Check if user is active
-    
+
     # For demo purposes, we'll accept any login
     logger.info("User logged in successfully", email=user_data.email)
-    
+
     # Create access token
     access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
     access_token = create_access_token(
-        data={"sub": user_data.email}, 
-        expires_delta=access_token_expires
+        data={"sub": user_data.email}, expires_delta=access_token_expires
     )
-    
+
     return Token(
-        access_token=access_token,
-        expires_in=settings.access_token_expire_minutes * 60
+        access_token=access_token, expires_in=settings.access_token_expire_minutes * 60
     )
 
 
@@ -176,11 +169,9 @@ async def refresh_token(current_user: User = Depends(get_current_user)):
     """Refresh access token."""
     access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
     access_token = create_access_token(
-        data={"sub": current_user.email}, 
-        expires_delta=access_token_expires
+        data={"sub": current_user.email}, expires_delta=access_token_expires
     )
-    
+
     return Token(
-        access_token=access_token,
-        expires_in=settings.access_token_expire_minutes * 60
+        access_token=access_token, expires_in=settings.access_token_expire_minutes * 60
     )

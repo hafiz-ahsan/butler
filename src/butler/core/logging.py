@@ -13,7 +13,7 @@ from butler.core.config import settings
 
 def configure_logging() -> None:
     """Configure structured logging for the application."""
-    
+
     # Configure structlog
     structlog.configure(
         processors=[
@@ -25,15 +25,18 @@ def configure_logging() -> None:
             structlog.processors.StackInfoRenderer(),
             structlog.processors.format_exc_info,
             structlog.processors.UnicodeDecoder(),
-            structlog.processors.JSONRenderer() if settings.log_format == "json" 
-            else structlog.dev.ConsoleRenderer(colors=True),
+            (
+                structlog.processors.JSONRenderer()
+                if settings.log_format == "json"
+                else structlog.dev.ConsoleRenderer(colors=True)
+            ),
         ],
         context_class=dict,
         logger_factory=structlog.stdlib.LoggerFactory(),
         wrapper_class=structlog.stdlib.BoundLogger,
         cache_logger_on_first_use=True,
     )
-    
+
     # Configure standard library logging
     if settings.log_format != "json":
         logging.basicConfig(
@@ -54,7 +57,7 @@ def configure_logging() -> None:
             stream=sys.stdout,
             level=getattr(logging, settings.log_level.upper()),
         )
-    
+
     # Set logging levels for third-party libraries
     logging.getLogger("uvicorn").setLevel(logging.INFO)
     logging.getLogger("uvicorn.access").setLevel(logging.INFO)

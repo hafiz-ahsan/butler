@@ -22,9 +22,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Handle application lifespan events."""
     # Startup
     logger.info("Starting Butler service", version=settings.app_version)
-    
+
     yield
-    
+
     # Shutdown
     logger.info("Shutting down Butler service")
 
@@ -63,16 +63,16 @@ async def log_requests(request: Request, call_next):
         url=str(request.url),
         headers=dict(request.headers),
     )
-    
+
     response = await call_next(request)
-    
+
     logger.info(
         "HTTP response",
         status_code=response.status_code,
         method=request.method,
         url=str(request.url),
     )
-    
+
     return response
 
 
@@ -85,7 +85,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
         method=request.method,
         url=str(request.url),
     )
-    
+
     if settings.debug:
         return JSONResponse(
             status_code=500,
@@ -95,7 +95,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
                 "type": type(exc).__name__,
             },
         )
-    
+
     return JSONResponse(
         status_code=500,
         content={"error": "Internal Server Error"},
@@ -119,7 +119,7 @@ app.include_router(api_router, prefix="/api/v1")
 
 if __name__ == "__main__":
     import uvicorn
-    
+
     uvicorn.run(
         "butler.main:app",
         host=settings.host,
