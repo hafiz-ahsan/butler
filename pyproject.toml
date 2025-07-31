@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "butler"
 version = "0.1.0"
-description = "A world-class Python backend service"
+description = "A Python backend service"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}

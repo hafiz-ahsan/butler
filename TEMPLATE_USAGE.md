@@ -50,7 +50,7 @@ The generator replaces these template variables throughout the codebase:
 |------------------|---------------|-------------|
 | `butler` | `my-api` | Lowercase project name (used in imports, configs) |
 | `Butler` | `My API` | Project title (used in titles, descriptions) |
-| `A world-class Python backend service` | `My amazing API service` | Project description |
+| `A Python backend service` | `My amazing API service` | Project description |
 | `Butler Team` | `Your Team` | Author/team name |
 | `team@butler.dev` | `your@email.com` | Contact email |
 | `butler-team/butler` | `yourorg/my-api` | GitHub repository |

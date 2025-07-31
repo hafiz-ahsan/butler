@@ -11,7 +11,7 @@ from rich.table import Table
 from butler.core.config import settings
 from butler.core.logging import configure_logging, get_logger
 
-app = typer.Typer(name="butler", help="Butler - A world-class Python backend service")
+app = typer.Typer(name="butler", help="Butler - A Python backend service")
 console = Console()
 
 

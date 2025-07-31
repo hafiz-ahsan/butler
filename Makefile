@@ -2,7 +2,7 @@
 
 # Default target
 help:
-	@echo "Butler - A world-class Python backend service"
+	@echo "Butler - A Python backend service"
 	@echo ""
 	@echo "Available commands:"
 	@echo "  install      - Install dependencies using uv"

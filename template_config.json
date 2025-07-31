@@ -1,12 +1,12 @@
 {
   "project_name": "butler",
   "project_name_title": "Butler",
-  "project_description": "A world-class Python backend service",
+  "project_description": "A Python backend service",
   "author_name": "Butler Team",
   "author_email": "team@butler.dev",
   "github_repo": "butler-team/butler",
   "database_name": "butler",
   "database_user": "butler",
-  "service_description": "Butler - A world-class Python backend service",
-  "cli_description": "Butler - A world-class Python backend service"
+  "service_description": "Butler - A Python backend service",
+  "cli_description": "Butler - A Python backend service"
 }

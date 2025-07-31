@@ -1,6 +1,6 @@
 # Butler
 
-A world-class Python backend service built with FastAPI, featuring AI service integrations, authentication, and modern development practices.
+A Python backend service built with FastAPI, featuring AI service integrations, authentication, and modern development practices.
 
 ## 🚀 Quick Start with Template
 
@@ -156,7 +156,7 @@ GitHub repo [your-name/my-api]: yourorg/my-api
 The generator replaces these template variables:
 - `butler` → your project name
 - `Butler` → your project title
-- `A world-class Python backend service` → your description
+- `A Python backend service` → your description
 - `Butler Team` → your author name
 - `team@butler.dev` → your email
 - `butler-team/butler` → your GitHub repo
