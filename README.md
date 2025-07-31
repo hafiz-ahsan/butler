@@ -2,7 +2,7 @@
 
 A Python backend service built with FastAPI, featuring AI service integrations, authentication, and modern development practices.
 
-## 🚀 Quick Start with Template
+## Quick Start with Template
 
 This project is a template! Generate your own project:
 
@@ -23,16 +23,16 @@ The generator will ask for:
 
 ## Features
 
-- 🚀 **FastAPI** - Modern, fast web framework for building APIs
-- 🤖 **AI Integration** - Support for OpenAI, Anthropic, and Google AI
-- 🔐 **Authentication** - JWT-based authentication system
-- 📊 **Database** - PostgreSQL with SQLAlchemy ORM
-- 🔄 **Background Tasks** - Celery with Redis
-- 📝 **Logging** - Structured logging with rich console output
-- 🧪 **Testing** - Comprehensive test suite with pytest
-- 🔧 **Development Tools** - Pre-commit hooks, linting, and formatting
-- 🐳 **Docker** - Production-ready containerization
-- 📚 **Documentation** - Auto-generated API docs
+- **FastAPI** - Modern, fast web framework for building APIs
+- **AI Integration** - Support for OpenAI, Anthropic, and Google AI
+- **Authentication** - JWT-based authentication system
+- **Database** - PostgreSQL with SQLAlchemy ORM
+- **Background Tasks** - Celery with Redis
+- **Logging** - Structured logging with rich console output
+- **Testing** - Comprehensive test suite with pytest
+- **Development Tools** - Pre-commit hooks, linting, and formatting
+- **Docker** - Production-ready containerization
+- **Documentation** - Auto-generated API docs
 
 ## Quick Start (for Butler project)
 

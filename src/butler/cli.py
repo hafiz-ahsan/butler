@@ -24,7 +24,7 @@ def serve(
     log_level: str = typer.Option(settings.log_level, help="Log level"),
 ):
     """Start the Butler service."""
-    console.print(f"🚀 Starting Butler service on {host}:{port}", style="bold green")
+    console.print(f"Starting Butler service on {host}:{port}", style="bold green")
     
     uvicorn.run(
         "butler.main:app",
@@ -77,13 +77,13 @@ def health():
         response = httpx.get(f"http://{settings.host}:{settings.port}/health")
         if response.status_code == 200:
             data = response.json()
-            console.print("✅ Service is healthy", style="bold green")
+            console.print("Service is healthy", style="bold green")
             console.print(f"Status: {data['status']}")
             console.print(f"Version: {data['version']}")
         else:
-            console.print(f"❌ Service unhealthy: {response.status_code}", style="bold red")
+            console.print(f"Service unhealthy: {response.status_code}", style="bold red")
     except Exception as e:
-        console.print(f"❌ Unable to connect to service: {e}", style="bold red")
+        console.print(f"Unable to connect to service: {e}", style="bold red")
 
 
 @app.command()
@@ -92,7 +92,7 @@ def test():
     import subprocess
     import sys
     
-    console.print("🧪 Running tests...", style="bold blue")
+    console.print("Running tests...", style="bold blue")
     
     try:
         result = subprocess.run([
@@ -102,9 +102,9 @@ def test():
             "--cov=butler",
             "--cov-report=term-missing"
         ], check=True)
-        console.print("✅ All tests passed!", style="bold green")
+        console.print("All tests passed!", style="bold green")
     except subprocess.CalledProcessError:
-        console.print("❌ Tests failed!", style="bold red")
+        console.print("Tests failed!", style="bold red")
         raise typer.Exit(1)
 
 
@@ -114,7 +114,7 @@ def lint():
     import subprocess
     import sys
     
-    console.print("🔍 Running linting checks...", style="bold blue")
+    console.print("Running linting checks...", style="bold blue")
     
     commands = [
         (["black", "--check", "--diff", "."], "Black formatting"),
@@ -128,9 +128,9 @@ def lint():
         console.print(f"Running {description}...")
         try:
             subprocess.run(cmd, check=True, capture_output=True)
-            console.print(f"✅ {description} passed", style="green")
+            console.print(f"{description} passed", style="green")
         except subprocess.CalledProcessError as e:
-            console.print(f"❌ {description} failed", style="red")
+            console.print(f"{description} failed", style="red")
             if e.stdout:
                 console.print(e.stdout.decode())
             if e.stderr:
@@ -140,7 +140,7 @@ def lint():
     if failed:
         raise typer.Exit(1)
     else:
-        console.print("✅ All linting checks passed!", style="bold green")
+        console.print("All linting checks passed!", style="bold green")
 
 
 if __name__ == "__main__":

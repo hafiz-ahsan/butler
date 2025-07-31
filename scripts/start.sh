@@ -4,11 +4,11 @@
 
 set -e
 
-echo "🚀 Starting Butler service..."
+echo "Starting Butler service..."
 
 # Check if virtual environment exists
 if [ ! -d ".venv" ]; then
-    echo "📦 Installing dependencies with uv..."
+    echo "Installing dependencies with uv..."
     uv sync
 fi
 
@@ -19,7 +19,7 @@ source .venv/bin/activate
 # alembic upgrade head
 
 # Start the service
-echo "🌟 Butler service is starting..."
+echo "Butler service is starting..."
 exec uvicorn butler.main:app \
     --host "${HOST:-0.0.0.0}" \
     --port "${PORT:-8000}" \

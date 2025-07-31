@@ -21,7 +21,7 @@ def load_template_config() -> Dict[str, Any]:
 
 def get_user_config() -> Dict[str, Any]:
     """Get configuration from user input."""
-    print("🚀 Python Backend Service Template Generator")
+    print("Python Backend Service Template Generator")
     print("=" * 50)
     
     config = {}
@@ -56,13 +56,13 @@ def replace_in_file(file_path: Path, replacements: Dict[str, str]) -> None:
             content = content.replace(old, new)
         
         file_path.write_text(content, encoding='utf-8')
-        print(f"✅ Updated {file_path}")
+        print(f"Updated {file_path}")
         
     except UnicodeDecodeError:
         # Skip binary files
-        print(f"⏭️  Skipped binary file {file_path}")
+        print(f"Skipped binary file {file_path}")
     except Exception as e:
-        print(f"❌ Error updating {file_path}: {e}")
+        print(f"Error updating {file_path}: {e}")
 
 
 def rename_directories(base_path: Path, old_name: str, new_name: str) -> None:
@@ -77,7 +77,7 @@ def rename_directories(base_path: Path, old_name: str, new_name: str) -> None:
                 new_dir = root_path / dir_name.replace(old_name, new_name)
                 if old_dir.exists() and not new_dir.exists():
                     old_dir.rename(new_dir)
-                    print(f"📁 Renamed directory: {old_dir} → {new_dir}")
+                    print(f"Renamed directory: {old_dir} -> {new_dir}")
 
 
 def generate_project(target_dir: str = None) -> None:
@@ -94,7 +94,7 @@ def generate_project(target_dir: str = None) -> None:
     if target_path.exists():
         response = input(f"Directory {target_path} exists. Continue? (y/N): ")
         if response.lower() != 'y':
-            print("❌ Cancelled.")
+            print("Cancelled.")
             return
     else:
         target_path.mkdir(parents=True, exist_ok=True)
@@ -102,7 +102,7 @@ def generate_project(target_dir: str = None) -> None:
     # Copy template to target directory (if not generating in place)
     source_path = Path(__file__).parent
     if target_path != source_path:
-        print(f"📁 Copying template to {target_path}...")
+        print(f"Copying template to {target_path}...")
         
         # Copy files, excluding certain directories and files
         exclude_patterns = {
@@ -124,7 +124,7 @@ def generate_project(target_dir: str = None) -> None:
         if key in user_config:
             replacements[value] = user_config[key]
     
-    print(f"\n🔄 Applying template transformations...")
+    print(f"\nApplying template transformations...")
     print(f"Replacements: {replacements}")
     
     # Apply replacements to all text files
@@ -153,11 +153,11 @@ def generate_project(target_dir: str = None) -> None:
     for file in template_files:
         if file.exists():
             file.unlink()
-            print(f"🗑️  Removed template file: {file}")
+            print(f"Removed template file: {file}")
     
-    print(f"\n🎉 Project '{user_config['project_name_title']}' generated successfully!")
-    print(f"📁 Location: {target_path}")
-    print(f"\n🚀 Next steps:")
+    print(f"\nProject '{user_config['project_name_title']}' generated successfully!")
+    print(f"Location: {target_path}")
+    print(f"\nNext steps:")
     print(f"   cd {target_path}")
     print(f"   make install-dev")
     print(f"   make dev")
